@@ -12,7 +12,7 @@ public class SlashTrackerICmdEventListener implements EventListener {
     private final KafkaTemplate<Long, String> templateForLink;
 
 
-    @Override
+    //method for passing ur valoranttracker link with a cmd command in basically any channel
     public void onEvent(GenericEvent event) {
         if (event instanceof SlashCommandInteractionEvent) {
             if (((SlashCommandInteractionEvent) event).getName().equals("tracker")) {

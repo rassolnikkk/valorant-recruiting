@@ -32,7 +32,7 @@ public class ApplicantService {
     public void addApplicant(Applicant applicant){
         applicantRepo.save(applicant);
     }
-
+    //methods below which track all data  sended from discord eventlisteners classes and add it to my database
     @KafkaListener(topics = "rank")
     public void addRank(ConsumerRecord<Long, String> record) {
         Connection con = null;
@@ -69,7 +69,7 @@ public class ApplicantService {
     }
 
     @KafkaListener(topics = "roles")
-    public void addRole(ConsumerRecord<Long, String> record) {
+    public void addRole(ConsumerRecord<Long, String> record)  {
         Connection con = null;
         String url = "jdbc:postgresql://localhost:5432/valorant_recruiting_db";
         try {
@@ -104,7 +104,7 @@ public class ApplicantService {
     }
 
     @KafkaListener(topics = "trackerlink")
-    public void addLink(ConsumerRecord<Long, String> record) {
+    public void addLink(ConsumerRecord<Long, String> record)  {
         Connection con = null;
         String url = "jdbc:postgresql://localhost:5432/valorant_recruiting_db";
         try {
@@ -139,7 +139,7 @@ public class ApplicantService {
 
     }
     @KafkaListener(topics = "age")
-    public void addAge(ConsumerRecord<Long, String> record) {
+    public void addAge(ConsumerRecord<Long, String> record)  {
         Connection con = null;
         String url = "jdbc:postgresql://localhost:5432/valorant_recruiting_db";
         try {

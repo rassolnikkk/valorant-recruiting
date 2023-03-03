@@ -9,7 +9,7 @@ import org.springframework.kafka.core.KafkaTemplate;
 @RequiredArgsConstructor
 public class SlashAgeCmdEventListener implements EventListener {
     private final KafkaTemplate<Long, String> template;
-    @Override
+    //method for passing ur age with a cmd command in basically any channel
     public void onEvent(GenericEvent event) {
         if (event instanceof SlashCommandInteractionEvent) {
             if (((SlashCommandInteractionEvent) event).getName().equals("age")) {

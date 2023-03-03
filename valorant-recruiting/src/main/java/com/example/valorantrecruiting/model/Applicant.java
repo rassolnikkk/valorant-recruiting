@@ -1,12 +1,9 @@
 package com.example.valorantrecruiting.model;
 
-import jakarta.annotation.Nullable;
 import jakarta.persistence.*;
 import lombok.*;
-import org.hibernate.Hibernate;
-
-import java.util.Objects;
-
+//basically my only pojo class
+//represents an applicant
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter

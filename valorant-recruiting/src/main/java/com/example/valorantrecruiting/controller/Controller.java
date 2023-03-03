@@ -7,18 +7,21 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
-
+//the only controller in this application
 @AllArgsConstructor
 @RestController
 @RequestMapping("api/v1")
 public class Controller {
 
     private ApplicantService applicantService;
+
+    //method for getting all existing applicants
     @GetMapping("/viewall")
     public List<Applicant> viewALl(){
         return applicantService.getALlApplicants();
     }
 
+    //method for accepting an applicant by passing his unique discord id in parameters
     @PostMapping("/accept")
     public void acceptApplicant(@RequestParam Long id){
         Optional applicantOptional = applicantService.findApplicantById(id);
@@ -28,6 +31,7 @@ public class Controller {
             applicantService.addApplicant(applicant);
         }
     }
+    //method for declining an applicant by passing his unique discord id in parameters
     @PostMapping("/decline")
     public void declineApplicant(@RequestParam Long id){
         Optional applicantOptional = applicantService.findApplicantById(id);
