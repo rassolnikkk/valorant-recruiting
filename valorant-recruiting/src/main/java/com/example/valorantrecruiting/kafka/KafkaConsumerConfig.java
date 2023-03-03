@@ -1,7 +1,6 @@
 package com.example.valorantrecruiting.kafka;
 
 import org.apache.kafka.clients.consumer.ConsumerConfig;
-import org.apache.kafka.common.serialization.IntegerDeserializer;
 import org.apache.kafka.common.serialization.LongDeserializer;
 import org.apache.kafka.common.serialization.StringDeserializer;
 import org.springframework.context.annotation.Bean;

@@ -3,7 +3,6 @@ package com.example.valorantrecruiting.discord;
 
 import com.example.valorantrecruiting.kafka.KafkaProducerConfig;
 
-import com.example.valorantrecruiting.repository.ApplicantRepo;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.interactions.commands.OptionType;

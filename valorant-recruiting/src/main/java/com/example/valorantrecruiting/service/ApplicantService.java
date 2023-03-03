@@ -32,7 +32,7 @@ public class ApplicantService {
     public void addApplicant(Applicant applicant){
         applicantRepo.save(applicant);
     }
-    //methods below which track all data  sended from discord eventlisteners classes and add it to my database
+    //methods below  track all data sended from discord eventlistener classes and add it to my database
     @KafkaListener(topics = "rank")
     public void addRank(ConsumerRecord<Long, String> record) {
         Connection con = null;
