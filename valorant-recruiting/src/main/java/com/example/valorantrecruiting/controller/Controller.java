@@ -5,8 +5,11 @@ import com.example.valorantrecruiting.service.ApplicantService;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
+
 //the only controller in this application
 @AllArgsConstructor
 @RestController
@@ -41,5 +44,18 @@ public class Controller {
             applicantService.addApplicant(applicant);
         }
     }
+    @DeleteMapping("/delete")
+    public void deleteAllDeclined(){
+        List<Applicant> list = applicantService.getALlApplicants();
+        ArrayList<Long> declinedApplicantIds = new ArrayList<>();
+        for (Applicant applicant:list) {
+            if (applicant.getIsAccepted() != null){
+                if (applicant.getIsAccepted() == false){
+                   declinedApplicantIds.add(applicant.getId());
+                }
+            }
+        }
+        applicantService.deleteApplicanstByIds(declinedApplicantIds);
 
+    }
 }

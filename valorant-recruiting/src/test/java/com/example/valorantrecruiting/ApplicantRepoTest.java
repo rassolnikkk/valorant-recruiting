@@ -2,8 +2,6 @@ package com.example.valorantrecruiting;
 
 import com.example.valorantrecruiting.config.ContainersEnvironment;
 import com.example.valorantrecruiting.model.Applicant;
-import com.example.valorantrecruiting.repository.ApplicantRepo;
-
 import com.example.valorantrecruiting.service.ApplicantService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -38,6 +36,4 @@ public class ApplicantRepoTest extends ContainersEnvironment {
         boolean expected = underTest.applicantExistsById(1l);
         assertThat(expected).isTrue();
     }
-
-
 }
