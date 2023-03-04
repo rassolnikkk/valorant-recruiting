@@ -33,4 +33,8 @@ public class Applicant {
     @Column(nullable = true)
     private String valoTrackerReference;
 
+    public Applicant(Long id){
+        this.id = id;
+    }
+
 }

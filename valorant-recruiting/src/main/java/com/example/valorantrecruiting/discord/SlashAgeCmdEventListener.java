@@ -5,7 +5,6 @@ import net.dv8tion.jda.api.events.GenericEvent;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.hooks.EventListener;
 import org.springframework.kafka.core.KafkaTemplate;
-
 @RequiredArgsConstructor
 public class SlashAgeCmdEventListener implements EventListener {
     private final KafkaTemplate<Long, String> template;

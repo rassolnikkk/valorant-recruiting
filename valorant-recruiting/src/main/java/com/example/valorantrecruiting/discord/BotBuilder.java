@@ -17,8 +17,7 @@ public class BotBuilder {
 
 
      public JDA botEntity;
-     //this method is creating a bot instanse with all eventlisteners and intentions,
-     //tragic but i hardcoded my api token bcs no one rly needs this bot
+     //this method is creating a bot instance with all eventlisteners and intentions,
     @EventListener(ApplicationReadyEvent.class)
     public JDA botCreator() throws LoginException {
         JDABuilder bot = JDABuilder.createDefault("MTA3MTAzNjM4MTEyOTg3OTY1Mg.GpVtJJ.VYZUTwKrmOdyJgCn9OyCCFUBvaz_X3dYYaC7xo" );
