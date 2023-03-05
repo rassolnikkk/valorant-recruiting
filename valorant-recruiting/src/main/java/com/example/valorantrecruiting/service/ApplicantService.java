@@ -31,7 +31,13 @@ public class ApplicantService {
         applicantRepo.save(applicant);
     }
 
-    public void deleteApplicanstByIds(List<Long> idsToDelete){
+    public void deleteApplicantsByIds(List<Long> idsToDelete){
         applicantRepo.deleteAllById(idsToDelete);
     }
+
+    public void deleteApplicant(Applicant applicant){
+        applicantRepo.delete(applicant);
+    }
+
+
 }

@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 //the only controller in this application
 @AllArgsConstructor
@@ -55,7 +54,7 @@ public class Controller {
                 }
             }
         }
-        applicantService.deleteApplicanstByIds(declinedApplicantIds);
+        applicantService.deleteApplicantsByIds(declinedApplicantIds);
 
     }
 }
