@@ -2,7 +2,7 @@ package com.example.valorantrecruiting.service;
 
 import com.example.valorantrecruiting.model.Applicant;
 import com.example.valorantrecruiting.repository.ApplicantRepo;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -10,10 +10,10 @@ import java.util.Optional;
 
 
 @Service
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class ApplicantService {
 
-    ApplicantRepo applicantRepo;
+    private final ApplicantRepo applicantRepo;
 
     public List<Applicant> getALlApplicants() {
         return applicantRepo.findAll();

@@ -20,7 +20,7 @@ public class BotBuilder {
      //this method is creating a bot instance with all eventlisteners and intentions,
     @EventListener(ApplicationReadyEvent.class)
     public JDA botCreator() throws LoginException {
-        JDABuilder bot = JDABuilder.createDefault("MTA3MTAzNjM4MTEyOTg3OTY1Mg.Gp9PwQ.Hmr8Wb1Pnnc2zXnpo1_1LznQOUmNHD_hcwOGcM" );
+        JDABuilder bot = JDABuilder.createDefault("MTA3MTAzNjM4MTEyOTg3OTY1Mg.Gj54IE.E8vVAvpxOXgutPiW3HNHLMFpVU2ciLrr6e1DoI" );
         bot.enableIntents(GatewayIntent.MESSAGE_CONTENT, GatewayIntent.GUILD_MESSAGES, GatewayIntent.DIRECT_MESSAGE_REACTIONS, GatewayIntent.GUILD_MESSAGE_REACTIONS,GatewayIntent.DIRECT_MESSAGES);
         bot.addEventListeners(
                 new SlashTrackerICmdEventListener(new KafkaProducerConfig().kafkaTemplate()),

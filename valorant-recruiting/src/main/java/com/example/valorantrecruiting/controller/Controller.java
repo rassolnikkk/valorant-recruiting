@@ -2,7 +2,7 @@ package com.example.valorantrecruiting.controller;
 
 import com.example.valorantrecruiting.model.Applicant;
 import com.example.valorantrecruiting.service.ApplicantService;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -10,12 +10,12 @@ import java.util.List;
 import java.util.Optional;
 
 //the only controller in this application
-@AllArgsConstructor
+@RequiredArgsConstructor
 @RestController
 @RequestMapping("api/v1")
 public class Controller {
 
-    private ApplicantService applicantService;
+    private final ApplicantService applicantService;
 
     //method for getting all existing applicants
     @GetMapping("/viewall")

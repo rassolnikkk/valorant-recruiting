@@ -17,7 +17,7 @@ import org.springframework.kafka.core.ProducerFactory;
 public class KafkaProducerConfig {
 
     @Bean
-    public ProducerFactory<Long, String> producerFactory() {
+    public  ProducerFactory<Long, String> producerFactory() {
         Map<String, Object> config = new HashMap<>();
         config.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG,
                 "127.0.0.1:9092");
@@ -32,7 +32,7 @@ public class KafkaProducerConfig {
     }
 
     @Bean
-    public KafkaTemplate kafkaTemplate() {
+    public  KafkaTemplate kafkaTemplate() {
 
         return new KafkaTemplate<>(producerFactory());
     }
