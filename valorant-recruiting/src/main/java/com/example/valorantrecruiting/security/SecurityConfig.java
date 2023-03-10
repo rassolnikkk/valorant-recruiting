@@ -17,14 +17,14 @@ public class SecurityConfig {
 
     @Bean
     public UserDetailsService userDetailsService (PasswordEncoder encoder){
-        UserDetails admin = User.withUsername("user").password(encoder.encode("pass")).roles("USER").build();
+        UserDetails admin = User.withUsername("user").password(encoder.encode("pass")).roles("ADMIN").build();
         return new InMemoryUserDetailsManager(admin);
 
     }
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception{
-       return http.csrf().disable().cors().disable().authorizeHttpRequests().requestMatchers("api/v1/**").hasRole("USER").anyRequest().authenticated().and().httpBasic().and().build();
+       return http.csrf().disable().cors().disable().authorizeHttpRequests().requestMatchers("api/v1/**").hasRole("ADMIN").anyRequest().authenticated().and().httpBasic().and().build();
     }
 
 

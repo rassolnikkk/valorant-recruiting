@@ -1,4 +1,4 @@
-package com.example.valorantrecruiting.discord;
+package com.example.valorantrecruiting.discord.eventlisteners;
 
 import lombok.RequiredArgsConstructor;
 import net.dv8tion.jda.api.events.GenericEvent;
@@ -14,12 +14,12 @@ public class SlashTrackerICmdEventListener implements EventListener {
 
     //method for passing ur valoranttracker link with a cmd command in basically any channel
     public void onEvent(GenericEvent event) {
-        if (event instanceof SlashCommandInteractionEvent) {
-            if (((SlashCommandInteractionEvent) event).getName().equals("tracker")) {
-                Long userID = ((SlashCommandInteractionEvent) event).getUser().getIdLong();
-                    String value = ((SlashCommandInteractionEvent) event).getOption("vlrtrackerlink").getAsString();
+        if (event instanceof SlashCommandInteractionEvent listenedEvent) {
+            if ((listenedEvent).getName().equals("tracker")) {
+                Long userID = (listenedEvent).getUser().getIdLong();
+                    String value = (listenedEvent).getOption("vlrtrackerlink").getAsString();
                     templateForLink.send("trackerlink", userID, value);
-                    ((SlashCommandInteractionEvent) event).reply("success").queue();
+                    (listenedEvent).reply("success").queue();
             }
         }
     }

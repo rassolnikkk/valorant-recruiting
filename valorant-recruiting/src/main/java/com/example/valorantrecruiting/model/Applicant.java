@@ -11,20 +11,23 @@ import lombok.*;
 @ToString
 @Entity
 @Table(name = "applicant", schema = "recruit_schema")
+@Builder
 public class Applicant {
 
     @Id
-    @Column(unique = true)
+    @Column(nullable = false)
     private Long id;
 
     @Column(nullable = true)
     private Integer age;
 
     @Column(name = "Role",nullable = true)
-    private String role;
+    @Enumerated(EnumType.STRING)
+    private Role role;
 
     @Column(name = "Rank",nullable = true)
-    private String rank;
+    @Enumerated(EnumType.STRING)
+    private Rank rank;
 
     @Column(nullable = true)
     private Boolean isAccepted;
@@ -36,5 +39,7 @@ public class Applicant {
     public Applicant(Long id){
         this.id = id;
     }
+
+
 
 }

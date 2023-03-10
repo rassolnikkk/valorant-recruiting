@@ -1,4 +1,4 @@
-package com.example.valorantrecruiting.discord;
+package com.example.valorantrecruiting.discord.eventlisteners;
 
 import lombok.RequiredArgsConstructor;
 import net.dv8tion.jda.api.events.GenericEvent;
@@ -10,12 +10,12 @@ public class SlashAgeCmdEventListener implements EventListener {
     private final KafkaTemplate<Long, String> template;
     //method for passing ur age with a cmd command in basically any channel
     public void onEvent(GenericEvent event) {
-        if (event instanceof SlashCommandInteractionEvent) {
-            if (((SlashCommandInteractionEvent) event).getName().equals("age")) {
-                Long userID = ((SlashCommandInteractionEvent) event).getUser().getIdLong();
-                    String Myvalue = ((SlashCommandInteractionEvent) event).getOption("age").getAsString();
+        if (event instanceof SlashCommandInteractionEvent listenedEvent) {
+            if ((listenedEvent).getName().equals("age")) {
+                Long userID = (listenedEvent).getUser().getIdLong();
+                    String Myvalue = (listenedEvent).getOption("age").getAsString();
                     template.send("age", userID, Myvalue);
-                    ((SlashCommandInteractionEvent) event).reply("success").queue();
+                    (listenedEvent).reply("success").queue();
             }
         }
     }

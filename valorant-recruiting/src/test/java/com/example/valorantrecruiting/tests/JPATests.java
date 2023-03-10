@@ -26,7 +26,7 @@ public class JPATests extends ContainersEnvironment{
 
     @Test
     public void getAllApplicantsShouldReturnEmptyList(){
-        List<Applicant> list = jpaUnderTest.getALlApplicants();
+        List<Applicant> list = jpaUnderTest.getAllApplicants();
         assertEquals(0,list.size());
     }
 
@@ -53,12 +53,12 @@ public class JPATests extends ContainersEnvironment{
         jpaUnderTest.addApplicant(applicant);
         jpaUnderTest.addApplicant(applicant1);
         jpaUnderTest.addApplicant(applicant2);
-        assertThat(jpaUnderTest.getALlApplicants().size()).isEqualTo(3);
+        assertThat(jpaUnderTest.getAllApplicants().size()).isEqualTo(3);
         List<Long> listOfIds = new ArrayList<>();
         listOfIds.add(2l);
         listOfIds.add(3l);
         jpaUnderTest.deleteApplicantsByIds(listOfIds);
-        assertThat(jpaUnderTest.getALlApplicants().size()).isEqualTo(1);
+        assertThat(jpaUnderTest.getAllApplicants().size()).isEqualTo(1);
         assertThat(jpaUnderTest.findApplicantById(5l)).isPresent();
     }
 

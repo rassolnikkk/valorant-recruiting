@@ -11,9 +11,10 @@ spring:
         format_sql: 'true'
     hibernate:
       ddl-auto: update
-    show-sql: 'true'
+    show-sql: true
 server:
   port: 8081
+bot_token: MTA3MTAzNjM4MTEyOTg3OTY1Mg.Gc1C-d.KGqYwjRYsT7QO1Ot-GZAd66uTmav_6yGI_SkHY
 
 
 
