@@ -1,4 +1,6 @@
 package com.example.valorantrecruiting.discord.eventlisteners;
+import com.example.valorantrecruiting.kafka.producers.ApplicantKafkaProducer;
+import com.example.valorantrecruiting.model.Applicant;
 import lombok.RequiredArgsConstructor;
 import net.dv8tion.jda.api.events.GenericEvent;
 import net.dv8tion.jda.api.events.message.react.MessageReactionAddEvent;
@@ -7,7 +9,10 @@ import org.springframework.kafka.core.KafkaTemplate;
 
 @RequiredArgsConstructor
 public class ReactionEventListener implements EventListener {
-    private final KafkaTemplate<Long, String> template;
+
+    private final KafkaTemplate<String, Applicant> template;
+
+    private final ApplicantKafkaProducer kafkaProducer;
 
 
     //this method gets all reactions on specific message which should be used for registration
@@ -19,10 +24,10 @@ public class ReactionEventListener implements EventListener {
             Long reactionUserId = (listenedEvent).getUserIdLong();
             String emojiName = (listenedEvent).getReaction().getEmoji().getName();
            if ((listenedEvent).getMessageId().equals(messageIdForRank)) {
-               template.send("rank", reactionUserId, emojiName);
-          }else;
+               kafkaProducer.produceUserIdAndRank(reactionUserId, emojiName);
+          }
            if ((listenedEvent).getMessageId().equals(messageIdForRole))
-              template.send("roles",reactionUserId,emojiName);
+            kafkaProducer.produceUserIdAndRole(reactionUserId, emojiName);
            }
         }
     }

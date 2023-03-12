@@ -1,6 +1,8 @@
 package com.example.valorantrecruiting.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.*;
 //basically my only pojo class
 //represents an applicant
@@ -14,6 +16,7 @@ import lombok.*;
 @Builder
 public class Applicant {
 
+    @NotNull
     @Id
     @Column(nullable = false)
     private Long id;
@@ -22,12 +25,10 @@ public class Applicant {
     private Integer age;
 
     @Column(name = "Role",nullable = true)
-    @Enumerated(EnumType.STRING)
-    private Role role;
+    private String role;
 
     @Column(name = "Rank",nullable = true)
-    @Enumerated(EnumType.STRING)
-    private Rank rank;
+    private String  rank;
 
     @Column(nullable = true)
     private Boolean isAccepted;

@@ -4,7 +4,6 @@ import com.example.valorantrecruiting.ValorantRecruitingApplication;
 import com.example.valorantrecruiting.config.ContainersEnvironment;
 import com.example.valorantrecruiting.model.Applicant;
 import com.example.valorantrecruiting.service.ApplicantService;
-import lombok.RequiredArgsConstructor;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -19,10 +18,13 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 @ActiveProfiles("test")
 @ExtendWith(SpringExtension.class)
 @SpringBootTest(classes = ValorantRecruitingApplication.class, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-@RequiredArgsConstructor
 public class JPATests extends ContainersEnvironment{
 
     private final ApplicantService jpaUnderTest;
+
+    public JPATests(ApplicantService jpaUnderTest) {
+        this.jpaUnderTest = jpaUnderTest;
+    }
 
     @Test
     public void getAllApplicantsShouldReturnEmptyList(){

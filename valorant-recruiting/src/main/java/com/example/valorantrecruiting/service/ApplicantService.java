@@ -1,13 +1,11 @@
 package com.example.valorantrecruiting.service;
 
 import com.example.valorantrecruiting.model.Applicant;
-import com.example.valorantrecruiting.model.Rank;
-import com.example.valorantrecruiting.model.Role;
+
 import com.example.valorantrecruiting.repository.ApplicantRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -27,10 +25,6 @@ public class ApplicantService {
         return applicantRepo.existsById(id);
     }
 
-    public Optional<Applicant> findApplicantById(Long id) {
-        return applicantRepo.findById(id);
-    }
-
     public void addApplicant(Applicant applicant) {
         applicantRepo.save(applicant);
     }
@@ -43,75 +37,58 @@ public class ApplicantService {
         applicantRepo.delete(applicant);
     }
 
-    public ResponseEntity<Applicant> acceptApplicant(Long id) {
-        Optional<Applicant> applicantOptional = findApplicantById(id);
+    public Applicant acceptApplicant(Long id) throws Exception {
+        Optional<Applicant> applicantOptional = applicantRepo.findById(id);
         if (applicantOptional.isEmpty()) {
-            return new ResponseEntity("User with id" + id + "doesnt exist", HttpStatus.NOT_FOUND);
+            throw new Exception();
         }
         Applicant applicant = applicantOptional.get();
         applicant.setIsAccepted(true);
         addApplicant(applicant);
-        return new ResponseEntity<>(applicant, HttpStatus.OK);
+        return applicant;
     }
 
-    public ResponseEntity<Applicant> declineApplicant(Long id) {
-        Optional<Applicant> applicantOptional = findApplicantById(id);
+    public Applicant declineApplicant(Long id) throws Exception {
+        Optional<Applicant> applicantOptional = applicantRepo.findById(id);
         if (applicantOptional.isEmpty()) {
-            return new ResponseEntity("User with id" + id + "doesnt exist", HttpStatus.NOT_FOUND);
+            throw new Exception();
         }
         Applicant applicant = applicantOptional.get();
         applicant.setIsAccepted(false);
         addApplicant(applicant);
-        return new ResponseEntity<>(applicant, HttpStatus.OK);
+        return applicant;
     }
 
-    public ResponseEntity deleteAllDeclined() {
+    public List<Long> deleteAllDeclined() {
         List<Applicant> allApplicantList = getAllApplicants();
         List<Long> declinedApplicantIds = allApplicantList.stream()
                 .filter(a -> !a.getIsAccepted())
                 .map(Applicant::getId)
                 .toList();
         deleteApplicantsByIds(declinedApplicantIds);
-        return new ResponseEntity(HttpStatus.OK);
+        return declinedApplicantIds;
     }
 
-    public void addApplicantWithIdAndRole(Long id, String role) {
-        try {
-            Role convertedToEnumRole = Role.valueOf(role);
-            Applicant applicant = new Applicant();
-            applicant.builder().id(id).role(convertedToEnumRole).build();
+    //@Transactional
+    public void updateApplicantIfExists(Applicant applicant, String option) {
+        if (applicantRepo.findById(applicant.getId()).isEmpty()) {
             applicantRepo.save(applicant);
-        } catch (IllegalArgumentException e) {
-            e.printStackTrace();
+        } else {
+            switch (option) {
+                case "rank":
+                    applicantRepo.updateApplicantRankById(applicant.getId(), applicant.getRank());
+                    break;
+                case "role":
+                    applicantRepo.updateApplicantRoleById(applicant.getId(), applicant.getRole());
+                    break;
+                case "age":
+                    applicantRepo.updateApplicantAgeById(applicant.getId(), applicant.getAge());
+                    break;
+                case "link":
+                    applicantRepo.updateApplicantLinkById(applicant.getId(), applicant.getValoTrackerReference());
+                    break;
+            }
         }
     }
-
-    public void addApplicantWithIdAndRank(Long id, String rank) {
-            Rank convertedToEnumRank = Rank.valueOf(rank);
-            Applicant applicant = new Applicant();
-            //applicant.builder().id(id).rank(convertedToEnumRank).build();
-        applicant.setId(id);
-        applicant.setRank(convertedToEnumRank);
-            applicantRepo.save(applicant);
-
-    }
-
-    public void addApplicantWithIdAndAge(Long id, String age) {
-        try {
-            Integer convertedToIntAge = Integer.valueOf(age);
-            Applicant applicant = new Applicant();
-            applicant.builder().id(id).age(convertedToIntAge).build();
-            applicantRepo.save(applicant);
-        } catch (IllegalArgumentException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void addApplicantWithIdAndTrackerLink(Long id, String valoTrackerLink){
-        Applicant applicant = new Applicant();
-        applicant.builder().id(id).valoTrackerReference(valoTrackerLink).build();
-        applicantRepo.save(applicant);
-    }
-
 }
 
