@@ -1,8 +1,9 @@
 package com.example.valorantrecruiting.controller;
 
+import com.example.valorantrecruiting.controller.command.ApplicantCommand;
 import com.example.valorantrecruiting.model.Applicant;
 import com.example.valorantrecruiting.service.ApplicantService;
-import jakarta.validation.constraints.Min;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import org.springframework.http.HttpStatus;
@@ -12,7 +13,6 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 //the only controller in this application
 @RequiredArgsConstructor
@@ -22,7 +22,7 @@ public class ApplicantController {
 
     private final ApplicantService applicantService;
 
-
+    @ResponseStatus(HttpStatus.OK)
     @GetMapping("/view_all_applicants")
     public ResponseEntity<List<Applicant>> viewAllApplicants() {
         return new ResponseEntity<>(applicantService.getAllApplicants(), HttpStatusCode.valueOf(200));
@@ -32,21 +32,16 @@ public class ApplicantController {
     @SneakyThrows
     @PostMapping("/accept_applicant")
     @ExceptionHandler(MethodArgumentNotValidException.class)
-    public Applicant acceptApplicant(@RequestBody @Min(1l) Long id) {
-        return applicantService.acceptApplicant(id);
+    public Applicant acceptApplicant(@RequestBody @Valid ApplicantCommand applicantCommand) {
+        return applicantService.acceptApplicant(applicantCommand.getId());
     }
 
 
     @SneakyThrows
     @PostMapping("/decline_applicant")
-    public Applicant declineApplicant(@RequestBody Long id) {
-        if (id == null){
-            throw new RuntimeException("the given id must not be null");
-        }
-        if (id <= 0){
-            throw new RuntimeException("the given id must be above 0");
-        }
-        return applicantService.declineApplicant(id);
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    public Applicant declineApplicant(@RequestBody @Valid ApplicantCommand applicantCommand) {
+        return applicantService.declineApplicant(applicantCommand.getId());
     }
 
     @DeleteMapping("/delete_all_declined")

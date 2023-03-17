@@ -14,24 +14,8 @@ public class KafkaListeners {
     private final ApplicantService applicantService;
 
     //methods below  track all data sent from discord eventlistener classes and add it to my database
-    @KafkaListener(topics = "rank", containerFactory = "applicantConcurrentKafkaListenerContainerFactory")
-    public void rankTopicListener(Applicant applicant) {
-        applicantService.updateApplicantIfExists(applicant, "rank");
-    }
-
-    @KafkaListener(topics = "roles", groupId = "valorant_recruiting", containerFactory = "applicantConcurrentKafkaListenerContainerFactory")
-    public void rolesTopicListener(Applicant applicant)  {
-      applicantService.updateApplicantIfExists(applicant, "role");
-
-    }
-
-    @KafkaListener(topics = "trackerlink", containerFactory = "applicantConcurrentKafkaListenerContainerFactory")
-    public void trackerlinkTopicListener(Applicant applicant)  {
-        applicantService.updateApplicantIfExists(applicant, "age");
-    }
-
-    @KafkaListener(topics = "age", containerFactory = "applicantConcurrentKafkaListenerContainerFactory")
-    public void ageTopicListener(Applicant applicant)  {
-        applicantService.updateApplicantIfExists(applicant, "link");
+    @KafkaListener(topics = "applicant", groupId = "valorant_recruiting", containerFactory = "applicantConcurrentKafkaListenerContainerFactory")
+    private void applicantTopicListener(Applicant applicant){
+        applicantService.addApplicant(applicant);
     }
 }

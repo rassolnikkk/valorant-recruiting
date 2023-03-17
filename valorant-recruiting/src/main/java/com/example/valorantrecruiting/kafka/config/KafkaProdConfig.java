@@ -30,7 +30,6 @@ public class KafkaProdConfig {
     }
 
     @Bean
-    @Primary
     public KafkaTemplate<String, Applicant> applicantKafkaTemplate() {
         return new KafkaTemplate<>(applicantProducerFactory());
     }

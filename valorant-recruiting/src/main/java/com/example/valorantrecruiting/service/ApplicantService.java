@@ -5,7 +5,6 @@ import com.example.valorantrecruiting.model.Applicant;
 import com.example.valorantrecruiting.repository.ApplicantRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -17,6 +16,9 @@ public class ApplicantService {
 
     private final ApplicantRepository applicantRepo;
 
+    public Optional<Applicant> findApplicantById(Long id){
+        return applicantRepo.findById(id);
+    }
     public List<Applicant> getAllApplicants() {
         return applicantRepo.findAll();
     }
@@ -24,6 +26,7 @@ public class ApplicantService {
     public boolean applicantExistsById(Long id) {
         return applicantRepo.existsById(id);
     }
+
 
     public void addApplicant(Applicant applicant) {
         applicantRepo.save(applicant);
@@ -37,10 +40,10 @@ public class ApplicantService {
         applicantRepo.delete(applicant);
     }
 
-    public Applicant acceptApplicant(Long id) throws Exception {
+    public Applicant acceptApplicant(Long id) throws NullPointerException {
         Optional<Applicant> applicantOptional = applicantRepo.findById(id);
         if (applicantOptional.isEmpty()) {
-            throw new Exception();
+            throw new NullPointerException();
         }
         Applicant applicant = applicantOptional.get();
         applicant.setIsAccepted(true);
@@ -48,10 +51,10 @@ public class ApplicantService {
         return applicant;
     }
 
-    public Applicant declineApplicant(Long id) throws Exception {
+    public Applicant declineApplicant(Long id) throws NullPointerException {
         Optional<Applicant> applicantOptional = applicantRepo.findById(id);
         if (applicantOptional.isEmpty()) {
-            throw new Exception();
+            throw new NullPointerException();
         }
         Applicant applicant = applicantOptional.get();
         applicant.setIsAccepted(false);
@@ -69,26 +72,5 @@ public class ApplicantService {
         return declinedApplicantIds;
     }
 
-    //@Transactional
-    public void updateApplicantIfExists(Applicant applicant, String option) {
-        if (applicantRepo.findById(applicant.getId()).isEmpty()) {
-            applicantRepo.save(applicant);
-        } else {
-            switch (option) {
-                case "rank":
-                    applicantRepo.updateApplicantRankById(applicant.getId(), applicant.getRank());
-                    break;
-                case "role":
-                    applicantRepo.updateApplicantRoleById(applicant.getId(), applicant.getRole());
-                    break;
-                case "age":
-                    applicantRepo.updateApplicantAgeById(applicant.getId(), applicant.getAge());
-                    break;
-                case "link":
-                    applicantRepo.updateApplicantLinkById(applicant.getId(), applicant.getValoTrackerReference());
-                    break;
-            }
-        }
-    }
 }
 
